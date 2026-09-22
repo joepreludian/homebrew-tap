@@ -1,8 +1,12 @@
 class DockerBackup < Formula
   desc "Back up and restore Docker volumes, images and container filesystems"
   homepage "https://docker-backup.jon.dev.br/"
-  version "0.2.0"
   license "GPL-3.0-or-later"
+
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
 
   on_macos do
     on_arm do
@@ -30,12 +34,6 @@ class DockerBackup < Formula
   # with the Docker Desktop, Colima or Rancher Desktop installation most users
   # already have, so the docker CLI stays theirs to manage. `docker-backup
   # doctor` reports it clearly when it is missing.
-
-  livecheck do
-    url "https://github.com/joepreludian/docker-backup/releases/latest"
-    strategy :page_match
-    regex(%r{tag/v?(\d+(?:\.\d+)+)}i)
-  end
 
   def install
     bin.install "docker-backup"
