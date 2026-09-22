@@ -1,0 +1,58 @@
+class DockerBackup < Formula
+  desc "Back up and restore Docker volumes, images and container filesystems"
+  homepage "https://docker-backup.jon.dev.br/"
+  version "@VERSION@"
+  license "GPL-3.0-or-later"
+
+  on_macos do
+    on_arm do
+      url "https://github.com/joepreludian/docker-backup/releases/download/v@VERSION@/docker-backup-@VERSION@-aarch64-apple-darwin.tar.gz"
+      sha256 "@SHA_DARWIN_ARM64@"
+    end
+    on_intel do
+      url "https://github.com/joepreludian/docker-backup/releases/download/v@VERSION@/docker-backup-@VERSION@-x86_64-apple-darwin.tar.gz"
+      sha256 "@SHA_DARWIN_X86_64@"
+    end
+  end
+
+  on_linux do
+    on_arm do
+      url "https://github.com/joepreludian/docker-backup/releases/download/v@VERSION@/docker-backup-@VERSION@-aarch64-unknown-linux-musl.tar.gz"
+      sha256 "@SHA_LINUX_ARM64@"
+    end
+    on_intel do
+      url "https://github.com/joepreludian/docker-backup/releases/download/v@VERSION@/docker-backup-@VERSION@-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "@SHA_LINUX_X86_64@"
+    end
+  end
+
+  # Deliberately no `depends_on "docker"`. Homebrew's docker formula collides
+  # with the Docker Desktop, Colima or Rancher Desktop installation most users
+  # already have, so the docker CLI stays theirs to manage. `docker-backup
+  # doctor` reports it clearly when it is missing.
+
+  livecheck do
+    url "https://github.com/joepreludian/docker-backup/releases/latest"
+    strategy :page_match
+    regex(%r{tag/v?(\d+(?:\.\d+)+)}i)
+  end
+
+  def install
+    bin.install "docker-backup"
+    doc.install "README.md", "LICENSE"
+  end
+
+  def caveats
+    <<~EOS
+      docker-backup drives the docker CLI, which this formula does not install.
+      Check your setup with:
+        docker-backup doctor
+
+      Manual: https://docker-backup.readthedocs.io/
+    EOS
+  end
+
+  test do
+    assert_match "docker-backup #{version}", shell_output("#{bin}/docker-backup --version")
+  end
+end

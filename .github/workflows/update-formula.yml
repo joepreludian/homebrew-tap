@@ -1,0 +1,42 @@
+name: Update formula
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "docker-backup version to point the formula at (for example 0.3.0)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    name: Render and commit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      # The version reaches the script through the environment rather than
+      # being interpolated into the shell command, so a dispatch input cannot
+      # inject anything into this step.
+      - name: Render the formula
+        env:
+          VERSION: ${{ inputs.version }}
+        run: bin/render-formula.sh "$VERSION"
+
+      - name: Commit
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          if git diff --quiet -- Formula/docker-backup.rb; then
+            echo "The formula already points at ${VERSION#v}; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Formula/docker-backup.rb
+          git commit -m "chore: update docker-backup to ${VERSION#v}"
+          git push
