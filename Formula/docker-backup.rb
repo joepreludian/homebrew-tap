@@ -10,23 +10,23 @@ class DockerBackup < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/joepreludian/docker-backup/releases/download/v0.3.0/docker-backup-0.3.0-aarch64-apple-darwin.tar.gz"
-      sha256 "2ecd98e4883d9bed8261cb62300f5f5dc9b71a1ec2fa9ea73aa01e3a05582d8a"
+      url "https://github.com/joepreludian/docker-backup/releases/download/v0.4.0/docker-backup-0.4.0-aarch64-apple-darwin.tar.gz"
+      sha256 "9de944edfad5fd90226029513bb104ba02232df449312266edf1841b73e49f1e"
     end
     on_intel do
-      url "https://github.com/joepreludian/docker-backup/releases/download/v0.3.0/docker-backup-0.3.0-x86_64-apple-darwin.tar.gz"
-      sha256 "57034e94e8b50fb2ffd3f5a3a361bc5be0a41b7d23e23002ce68ccfe1118e66d"
+      url "https://github.com/joepreludian/docker-backup/releases/download/v0.4.0/docker-backup-0.4.0-x86_64-apple-darwin.tar.gz"
+      sha256 "f0e8d56078ebd5921d0bbea6fd070db0446fb1042a82ecc006cef977d722edbf"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/joepreludian/docker-backup/releases/download/v0.3.0/docker-backup-0.3.0-aarch64-unknown-linux-musl.tar.gz"
-      sha256 "c874f573983a2e7bc5240e02de71f59ea91e16c198dc183aec6c4c6c6c4ea1d8"
+      url "https://github.com/joepreludian/docker-backup/releases/download/v0.4.0/docker-backup-0.4.0-aarch64-unknown-linux-musl.tar.gz"
+      sha256 "9c7bdf7c25d4f8c19253a3ffd73bfd34e2d8d4f6e1cd7736b27feffbee8a22d8"
     end
     on_intel do
-      url "https://github.com/joepreludian/docker-backup/releases/download/v0.3.0/docker-backup-0.3.0-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "484c73b1b8290eaf8ffdf6c44442e642a23c7e4e994bbddc3942715e5fe155c5"
+      url "https://github.com/joepreludian/docker-backup/releases/download/v0.4.0/docker-backup-0.4.0-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "cbbe087a2a4d91328f6207f424bf2de02ff45c9f8a8898aa9708a4c73f2c6d38"
     end
   end
 
